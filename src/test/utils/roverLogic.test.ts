@@ -1,25 +1,16 @@
 /* eslint-disable jest/valid-title */
 import {
+  executeInput,
   moveRover,
+  parsePosition,
+  plateauSize,
   Position,
   turnLeft,
   turnRight,
-  validateInputString,
+  validateInput,
 } from '../../utils/roverLogic';
 
 describe('Rover Logic', () => {
-  describe(validateInputString.name, () => {
-    it('should validate a string of instructions correctly', () => {
-      expect(validateInputString('LRM')).toBe(true);
-      expect(validateInputString('LMLMLMLMM')).toBe(true);
-      expect(validateInputString('MMRMMRMRRM')).toBe(true);
-
-      expect(validateInputString('L R M')).toBe(false);
-      expect(validateInputString('LMW')).toBe(false);
-      expect(validateInputString('1LM')).toBe(false);
-    });
-  });
-
   describe('rotateRover', () => {
     it('should rotate the rover 90 degrees to the right', () => {
       expect(turnRight('N')).toBe('E');
@@ -60,6 +51,89 @@ describe('Rover Logic', () => {
       const newPosition = moveRover(position, 'M');
       expect(newPosition).toEqual({ x: -1, y: 0, heading: 'W' });
     });
+  });
+});
+
+describe('validateInput', () => {
+  //TODO fix this formatting
+  it('should return true for valid input', () => {
+    const input = `5 5
+1 2 N
+LMLMLMLMM
+3 3 E
+MMRMMRMRRM`;
+    expect(validateInput(input)).toBe(true);
+  });
+
+  it('should return false for input with invalid plateau size', () => {
+    const input = `5
+1 2 N
+LMLMLMLMM
+3 3 E
+MMRMMRMRRM`;
+    expect(validateInput(input)).toBe(false);
+  });
+
+  it('should return false for input with invalid rover position', () => {
+    const input = `5 5
+1 2
+LMLMLMLMM
+3 3 E
+MMRMMRMRRM`;
+    expect(validateInput(input)).toBe(false);
+  });
+
+  it('should return false for input with invalid instructions', () => {
+    const input = `5 5
+1 2 N
+LMLMLMLMM
+3 3 E
+MMRMMRMRRMX`;
+    expect(validateInput(input)).toBe(false);
+  });
+
+  it('should return false for input with incorrect number of lines', () => {
+    const input = `5 5
+1 2 N
+LMLMLMLMM
+3 3 E`;
+    expect(validateInput(input)).toBe(false);
+  });
+
+  it('should return false for input with incorrect characters', () => {
+    const input = `5 5
+1 2 N
+LX
+3 3 E
+MMRMMRMRRM`;
+    expect(validateInput(input)).toBe(false);
+  });
+});
+
+describe(plateauSize.name, () => {
+  it('should return the plateau size as an array of two numbers', () => {
+    const input = '5 5';
+    expect(plateauSize(input)).toEqual([5, 5]);
+  });
+});
+
+describe(parsePosition.name, () => {
+  it('should return the position as an object with x, y, and heading properties', () => {
+    const input = '1 2 N';
+    expect(parsePosition(input)).toEqual({ x: 1, y: 2, heading: 'N' });
+  });
+});
+
+describe(executeInput.name, () => {
+  it('should return the output from the input for the rovers', () => {
+    const input = `5 5
+1 2 N
+LMLMLMLMM
+3 3 E
+MMRMMRMRRM`;
+
+    expect(executeInput(input)).toEqual(`1 3 N
+5 1 E`);
   });
 });
 
