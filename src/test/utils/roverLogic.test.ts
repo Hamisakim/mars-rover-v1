@@ -1,5 +1,6 @@
 /* eslint-disable jest/valid-title */
 import {
+  foo,
   moveRover,
   parsePosition,
   plateauSize,
@@ -120,6 +121,17 @@ describe(parsePosition.name, () => {
   it('should return the position as an object with x, y, and heading properties', () => {
     const input = '1 2 N';
     expect(parsePosition(input)).toEqual({ x: 1, y: 2, heading: 'N' });
+  });
+});
+
+describe(foo.name, () => {
+  it('should return the output from the input for the rovers', () => {
+    const input = `5 5
+1 2 N
+LMLMLMLMM
+3 3 E
+MMRMMRMRRM`;
+    foo(input);
   });
 });
 

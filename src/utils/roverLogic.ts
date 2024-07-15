@@ -3,11 +3,22 @@ export const validateInput = (input: string): boolean => {
   if (lines.length < 3 || lines.length % 2 === 0) return false;
 
   const plateauSize = lines[0].split(' ');
-  if (plateauSize.length !== 2 || isNaN(Number(plateauSize[0])) || isNaN(Number(plateauSize[1]))) return false;
+  if (
+    plateauSize.length !== 2 ||
+    isNaN(Number(plateauSize[0])) ||
+    isNaN(Number(plateauSize[1]))
+  )
+    return false;
 
   for (let i = 1; i < lines.length; i += 2) {
     const position = lines[i].split(' ');
-    if (position.length !== 3 || isNaN(Number(position[0])) || isNaN(Number(position[1])) || !['N', 'E', 'S', 'W'].includes(position[2])) return false;
+    if (
+      position.length !== 3 ||
+      isNaN(Number(position[0])) ||
+      isNaN(Number(position[1])) ||
+      !['N', 'E', 'S', 'W'].includes(position[2])
+    )
+      return false;
 
     const instructions = lines[i + 1];
     if (!/^[LRM]+$/.test(instructions)) return false;
@@ -98,7 +109,29 @@ export const plateauSize = (line: string): [number, number] => {
 
 export const parsePosition = (line: string): Position => {
   const [x, y, heading] = line.split(' ');
-  return { x: Number(x), y: Number(y), heading: heading as Position['heading'] };
+  return {
+    x: Number(x),
+    y: Number(y),
+    heading: heading as Position['heading'],
+  };
+};
+
+export const foo = (input: string) => {
+  if (!validateInput(input)) throw new Error('Invalid input');
+  const lines = input.trim().split('\n');
+  const [maxX, maxY] = plateauSize(lines[0]);
+
+  const rovers = [];
+  for (let i = 1; i < lines.length; i += 2) {
+    const position = parsePosition(lines[i]);
+    const instructions = lines[i + 1];
+    let newPosition = position;
+    for (const instruction of instructions) {
+      newPosition = moveRover(newPosition, instruction);
+    }
+    rovers.push(newPosition);
+  }
+return rovers;
 };
 
 export {};
