@@ -37,6 +37,12 @@ export const turnRight = (
   }
 };
 
+/**
+ * Moves the rover based on the given instruction.
+ * @param position - The current position of the rover.
+ * @param instruction - The instruction to be executed ('L' for left, 'R' for right, 'M' for move).
+ * @returns The new position of the rover after executing the instruction.
+ */
 export const moveRover = (
   position: Position,
   instruction: string
