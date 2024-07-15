@@ -1,6 +1,7 @@
 /* eslint-disable jest/valid-title */
 import {
   moveRover,
+  plateauSize,
   Position,
   turnLeft,
   turnRight,
@@ -104,6 +105,13 @@ LX
 3 3 E
 MMRMMRMRRM`;
     expect(validateInput(input)).toBe(false);
+  });
+});
+
+describe(plateauSize.name, () => {
+  it('should return the plateau size as an array of two numbers', () => {
+    const input = '5 5';
+    expect(plateauSize(input)).toEqual([5, 5]);
   });
 });
 

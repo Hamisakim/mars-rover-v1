@@ -92,6 +92,11 @@ export const moveRover = (
 };
 
 
+export const plateauSize = (line: string): [number, number] => {
+  const [maxX, maxY] = line.split(' ').map(Number);
+  return [maxX, maxY];
+};
+
 
 
 export {};
