@@ -1,10 +1,9 @@
-
-function App() {
+const App: React.FC = () => {
   return (
     <div className="App">
-     <h1>Mars Rover </h1>
+      <h1>Mars Rover</h1>
     </div>
   );
-}
+};
 
 export default App;
