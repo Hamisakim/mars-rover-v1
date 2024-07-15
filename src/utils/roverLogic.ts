@@ -1,3 +1,14 @@
+export interface Position {
+  x: number;
+  y: number;
+  heading: 'N' | 'E' | 'S' | 'W';
+}
+
+/**
+ * Validates the input string for the Mars Rover program.
+ * @param input - The input string to be validated.
+ * @returns A boolean indicating whether the input is valid or not.
+ */
 export const validateInput = (input: string): boolean => {
   const lines = input.trim().split('\n');
   if (lines.length < 3 || lines.length % 2 === 0) return false;
@@ -27,12 +38,11 @@ export const validateInput = (input: string): boolean => {
   return true;
 };
 
-export interface Position {
-  x: number;
-  y: number;
-  heading: 'N' | 'E' | 'S' | 'W';
-}
-
+/**
+ * Turns the rover left based on the current heading.
+ * @param heading - The current heading of the rover.
+ * @returns The new heading after turning left.
+ */
 export const turnLeft = (heading: Position['heading']): Position['heading'] => {
   switch (heading) {
     case 'N':
@@ -46,6 +56,11 @@ export const turnLeft = (heading: Position['heading']): Position['heading'] => {
   }
 };
 
+/**
+ * Turns the rover to the right based on the current heading.
+ * @param heading - The current heading of the rover.
+ * @returns The new heading after turning right.
+ */
 export const turnRight = (
   heading: Position['heading']
 ): Position['heading'] => {
@@ -69,7 +84,12 @@ export const turnRight = (
  * @param maxY - The maximum y coordinate of the plateau.
  * @returns The new position of the rover after executing the instruction.
  */
-export const moveRover = (position: Position, instruction: string, maxX: number, maxY: number): Position => {
+export const moveRover = (
+  position: Position,
+  instruction: string,
+  maxX: number,
+  maxY: number
+): Position => {
   let { x, y, heading } = position;
 
   switch (instruction) {
@@ -100,11 +120,21 @@ export const moveRover = (position: Position, instruction: string, maxX: number,
   return { x, y, heading };
 };
 
+/**
+ * Parses a string to extract the plateau size.
+ * @param line - The string representing the plateau size in the format "maxX maxY".
+ * @returns An array containing the maximum X and Y coordinates of the plateau.
+ */
 export const plateauSize = (line: string): [number, number] => {
   const [maxX, maxY] = line.split(' ').map(Number);
   return [maxX, maxY];
 };
 
+/**
+ * Parses a string representation of a position and returns a Position object.
+ * @param line - The string representation of the position in the format "x y heading".
+ * @returns The parsed Position object.
+ */
 export const parsePosition = (line: string): Position => {
   const [x, y, heading] = line.split(' ');
   return {
@@ -114,8 +144,14 @@ export const parsePosition = (line: string): Position => {
   };
 };
 
+/**
+ * Executes the input string to control the Mars rovers.
+ * @param input - The input string containing the instructions for the rovers.
+ * @returns A string representing the final positions and headings of the rovers.
+ * @throws {Error} If the input is invalid.
+ */
 export const executeInput = (input: string) => {
-  if (!validateInput(input)) throw new Error('Invalid input');
+  if (!validateInput(input)) throw new Error('Invalid input'); //? is this redundant
   const lines = input.trim().split('\n');
   const [maxX, maxY] = plateauSize(lines[0]);
 
