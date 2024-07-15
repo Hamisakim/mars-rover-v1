@@ -1,6 +1,18 @@
+/* eslint-disable jest/valid-title */
+import { validateInputString } from '../../utils/roverLogic';
+
 describe('Rover Logic', () => {
-  describe('validateInstructions', () => {
-    it('should validate a string of instructions correctly', () => {});
+  describe(validateInputString.name, () => {
+    it('should validate a string of instructions correctly', () => {
+      expect(validateInputString('LRM')).toBe(true);
+      expect(validateInputString('LMLMLMLMM')).toBe(true);
+      expect(validateInputString('MMRMMRMRRM')).toBe(true);
+
+      expect(validateInputString('L R M')).toBe(false);
+      expect(validateInputString('LMW')).toBe(false);
+      expect(validateInputString('1LM')).toBe(false);
+
+    });
   });
 
   describe('moveRover', () => {
