@@ -1,5 +1,7 @@
 /* eslint-disable jest/valid-title */
 import {
+  moveRover,
+  Position,
   turnLeft,
   turnRight,
   validateInputString,
@@ -35,13 +37,29 @@ describe('Rover Logic', () => {
   });
 
   describe('moveRover', () => {
-    it('should move the rover forward when facing north', () => {});
+    it('should move the rover forward when facing north', () => {
+      const position: Position = { x: 0, y: 0, heading: 'N' };
+      const newPosition = moveRover(position, 'M');
+      expect(newPosition).toEqual({ x: 0, y: 1, heading: 'N' });
+    });
 
-    it('should move the rover forward when facing east', () => {});
+    it('should move the rover forward when facing east', () => {
+      const position: Position = { x: 0, y: 0, heading: 'E' };
+      const newPosition = moveRover(position, 'M');
+      expect(newPosition).toEqual({ x: 1, y: 0, heading: 'E' });
+    });
 
-    it('should move the rover forward when facing south', () => {});
+    it('should move the rover forward when facing south', () => {
+      const position: Position = { x: 0, y: 0, heading: 'S' };
+      const newPosition = moveRover(position, 'M');
+      expect(newPosition).toEqual({ x: 0, y: -1, heading: 'S' });
+    });
 
-    it('should move the rover forward when facing west', () => {});
+    it('should move the rover forward when facing west', () => {
+      const position: Position = { x: 0, y: 0, heading: 'W' };
+      const newPosition = moveRover(position, 'M');
+      expect(newPosition).toEqual({ x: -1, y: 0, heading: 'W' });
+    });
   });
 });
 

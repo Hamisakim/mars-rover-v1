@@ -3,7 +3,7 @@ export const validateInputString = (input: string): boolean => {
   return validInput.test(input);
 };
 
-interface Position {
+export interface Position {
   x: number;
   y: number;
   heading: 'N' | 'E' | 'S' | 'W';
@@ -22,7 +22,9 @@ export const turnLeft = (heading: Position['heading']): Position['heading'] => {
   }
 };
 
-export const turnRight = (heading: Position['heading']): Position['heading'] => {
+export const turnRight = (
+  heading: Position['heading']
+): Position['heading'] => {
   switch (heading) {
     case 'N':
       return 'E';
@@ -35,5 +37,39 @@ export const turnRight = (heading: Position['heading']): Position['heading'] => 
   }
 };
 
+export const moveRover = (
+  position: Position,
+  instruction: string
+): Position => {
+  //TODO: Consider the case where the rover goes out of bounds
+  let { x, y, heading } = position;
+
+  switch (instruction) {
+    case 'L':
+      heading = turnLeft(heading);
+      break;
+    case 'R':
+      heading = turnRight(heading);
+      break;
+    case 'M':
+      switch (heading) {
+        case 'N':
+          y += 1;
+          break;
+        case 'E':
+          x += 1;
+          break;
+        case 'S':
+          y -= 1;
+          break;
+        case 'W':
+          x -= 1;
+          break;
+      }
+      break;
+  }
+
+  return { x, y, heading };
+};
 
 export {};
