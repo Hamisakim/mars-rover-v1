@@ -30,26 +30,50 @@ describe('Rover Logic', () => {
   describe('moveRover', () => {
     it('should move the rover forward when facing north', () => {
       const position: Position = { x: 0, y: 0, heading: 'N' };
-      const newPosition = moveRover(position, 'M');
+      const newPosition = moveRover(position, 'M', 5, 5);
       expect(newPosition).toEqual({ x: 0, y: 1, heading: 'N' });
     });
 
     it('should move the rover forward when facing east', () => {
       const position: Position = { x: 0, y: 0, heading: 'E' };
-      const newPosition = moveRover(position, 'M');
+      const newPosition = moveRover(position, 'M', 5, 5);
       expect(newPosition).toEqual({ x: 1, y: 0, heading: 'E' });
     });
 
     it('should move the rover forward when facing south', () => {
-      const position: Position = { x: 0, y: 0, heading: 'S' };
-      const newPosition = moveRover(position, 'M');
-      expect(newPosition).toEqual({ x: 0, y: -1, heading: 'S' });
+      const position: Position = { x: 0, y: 1, heading: 'S' };
+      const newPosition = moveRover(position, 'M', 5, 5);
+      expect(newPosition).toEqual({ x: 0, y: 0, heading: 'S' });
     });
 
     it('should move the rover forward when facing west', () => {
-      const position: Position = { x: 0, y: 0, heading: 'W' };
-      const newPosition = moveRover(position, 'M');
-      expect(newPosition).toEqual({ x: -1, y: 0, heading: 'W' });
+      const position: Position = { x: 1, y: 0, heading: 'W' };
+      const newPosition = moveRover(position, 'M', 5, 5);
+      expect(newPosition).toEqual({ x: 0, y: 0, heading: 'W' });
+    });
+
+    it('should not move the rover past the plateau boundaries going North', () => {
+      const position: Position = { x: 5, y: 5, heading: 'N' };
+      const newPosition = moveRover(position, 'M', 5, 5);
+      expect(newPosition).toEqual({ x: 5, y: 5, heading: 'N' });
+    });
+
+    it('should not move the rover past the plateau boundaries going East', () => {
+      const position: Position = { x: 5, y: 5, heading: 'E' };
+      const newPosition = moveRover(position, 'M', 5, 5);
+      expect(newPosition).toEqual({ x: 5, y: 5, heading: 'E' });
+    });
+
+    it('should not move the rover past the plateau boundaries when going South', () => {
+      const position: Position = { x: 0, y: 0, heading: 'S' };
+      const newPosition = moveRover(position, 'M', 5, 5);
+      expect(newPosition).toEqual({ x: 0, y: 0, heading: 'S' });
+    });
+
+    it('should not move the rover past the plateau boundaries going West', () => {
+      const position: Position = { x: 0, y: 5, heading: 'W' };
+      const newPosition = moveRover(position, 'M', 5, 5);
+      expect(newPosition).toEqual({ x: 0, y: 5, heading: 'W' });
     });
   });
 });

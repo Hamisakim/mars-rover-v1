@@ -65,13 +65,11 @@ export const turnRight = (
  * Moves the rover based on the given instruction.
  * @param position - The current position of the rover.
  * @param instruction - The instruction to be executed ('L' for left, 'R' for right, 'M' for move).
+ * @param maxX - The maximum x coordinate of the plateau.
+ * @param maxY - The maximum y coordinate of the plateau.
  * @returns The new position of the rover after executing the instruction.
  */
-export const moveRover = (
-  position: Position,
-  instruction: string
-): Position => {
-  //TODO: Consider the case where the rover goes out of bounds
+export const moveRover = (position: Position, instruction: string, maxX: number, maxY: number): Position => {
   let { x, y, heading } = position;
 
   switch (instruction) {
@@ -84,16 +82,16 @@ export const moveRover = (
     case 'M':
       switch (heading) {
         case 'N':
-          y += 1;
+          y = Math.min(y + 1, maxY);
           break;
         case 'E':
-          x += 1;
+          x = Math.min(x + 1, maxX);
           break;
         case 'S':
-          y -= 1;
+          y = Math.max(y - 1, 0);
           break;
         case 'W':
-          x -= 1;
+          x = Math.max(x - 1, 0);
           break;
       }
       break;
@@ -119,7 +117,6 @@ export const parsePosition = (line: string): Position => {
 export const executeInput = (input: string) => {
   if (!validateInput(input)) throw new Error('Invalid input');
   const lines = input.trim().split('\n');
-  //TODO implement out of bounds check
   const [maxX, maxY] = plateauSize(lines[0]);
 
   const rovers = [];
@@ -128,7 +125,7 @@ export const executeInput = (input: string) => {
     const instructions = lines[i + 1];
     let newPosition = position;
     for (const instruction of instructions) {
-      newPosition = moveRover(newPosition, instruction);
+      newPosition = moveRover(newPosition, instruction, maxX, maxY);
     }
     rovers.push(`${newPosition.x} ${newPosition.y} ${newPosition.heading}`);
   }
