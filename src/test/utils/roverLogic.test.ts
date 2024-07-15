@@ -4,22 +4,10 @@ import {
   Position,
   turnLeft,
   turnRight,
-  validateInputString,
+  validateInput,
 } from '../../utils/roverLogic';
 
 describe('Rover Logic', () => {
-  describe(validateInputString.name, () => {
-    it('should validate a string of instructions correctly', () => {
-      expect(validateInputString('LRM')).toBe(true);
-      expect(validateInputString('LMLMLMLMM')).toBe(true);
-      expect(validateInputString('MMRMMRMRRM')).toBe(true);
-
-      expect(validateInputString('L R M')).toBe(false);
-      expect(validateInputString('LMW')).toBe(false);
-      expect(validateInputString('1LM')).toBe(false);
-    });
-  });
-
   describe('rotateRover', () => {
     it('should rotate the rover 90 degrees to the right', () => {
       expect(turnRight('N')).toBe('E');
@@ -60,6 +48,62 @@ describe('Rover Logic', () => {
       const newPosition = moveRover(position, 'M');
       expect(newPosition).toEqual({ x: -1, y: 0, heading: 'W' });
     });
+  });
+});
+
+describe('validateInput', () => {
+  //TODO fix this formatting
+  it('should return true for valid input', () => {
+    const input = `5 5
+1 2 N
+LMLMLMLMM
+3 3 E
+MMRMMRMRRM`;
+    expect(validateInput(input)).toBe(true);
+  });
+
+  it('should return false for input with invalid plateau size', () => {
+    const input = `5
+1 2 N
+LMLMLMLMM
+3 3 E
+MMRMMRMRRM`;
+    expect(validateInput(input)).toBe(false);
+  });
+
+  it('should return false for input with invalid rover position', () => {
+    const input = `5 5
+1 2
+LMLMLMLMM
+3 3 E
+MMRMMRMRRM`;
+    expect(validateInput(input)).toBe(false);
+  });
+
+  it('should return false for input with invalid instructions', () => {
+    const input = `5 5
+1 2 N
+LMLMLMLMM
+3 3 E
+MMRMMRMRRMX`;
+    expect(validateInput(input)).toBe(false);
+  });
+
+  it('should return false for input with incorrect number of lines', () => {
+    const input = `5 5
+1 2 N
+LMLMLMLMM
+3 3 E`;
+    expect(validateInput(input)).toBe(false);
+  });
+
+  it('should return false for input with incorrect characters', () => {
+    const input = `5 5
+1 2 N
+LX
+3 3 E
+MMRMMRMRRM`;
+    expect(validateInput(input)).toBe(false);
   });
 });
 
