@@ -1,5 +1,9 @@
 /* eslint-disable jest/valid-title */
-import { validateInputString } from '../../utils/roverLogic';
+import {
+  turnLeft,
+  turnRight,
+  validateInputString,
+} from '../../utils/roverLogic';
 
 describe('Rover Logic', () => {
   describe(validateInputString.name, () => {
@@ -11,7 +15,22 @@ describe('Rover Logic', () => {
       expect(validateInputString('L R M')).toBe(false);
       expect(validateInputString('LMW')).toBe(false);
       expect(validateInputString('1LM')).toBe(false);
+    });
+  });
 
+  describe('rotateRover', () => {
+    it('should rotate the rover 90 degrees to the right', () => {
+      expect(turnRight('N')).toBe('E');
+      expect(turnRight('E')).toBe('S');
+      expect(turnRight('S')).toBe('W');
+      expect(turnRight('W')).toBe('N');
+    });
+
+    it('should rotate the rover 90 degrees to the left', () => {
+      expect(turnLeft('N')).toBe('W');
+      expect(turnLeft('W')).toBe('S');
+      expect(turnLeft('S')).toBe('E');
+      expect(turnLeft('E')).toBe('N');
     });
   });
 
@@ -23,12 +42,6 @@ describe('Rover Logic', () => {
     it('should move the rover forward when facing south', () => {});
 
     it('should move the rover forward when facing west', () => {});
-  });
-
-  describe('rotateRover', () => {
-    it('should rotate the rover 90 degrees to the right', () => {});
-
-    it('should rotate the rover 90 degrees to the left', () => {});
   });
 });
 
