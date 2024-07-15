@@ -91,12 +91,14 @@ export const moveRover = (
   return { x, y, heading };
 };
 
-
 export const plateauSize = (line: string): [number, number] => {
   const [maxX, maxY] = line.split(' ').map(Number);
   return [maxX, maxY];
 };
 
-
+export const parsePosition = (line: string): Position => {
+  const [x, y, heading] = line.split(' ');
+  return { x: Number(x), y: Number(y), heading: heading as Position['heading'] };
+};
 
 export {};

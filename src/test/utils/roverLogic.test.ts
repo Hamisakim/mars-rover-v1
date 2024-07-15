@@ -1,6 +1,7 @@
 /* eslint-disable jest/valid-title */
 import {
   moveRover,
+  parsePosition,
   plateauSize,
   Position,
   turnLeft,
@@ -112,6 +113,13 @@ describe(plateauSize.name, () => {
   it('should return the plateau size as an array of two numbers', () => {
     const input = '5 5';
     expect(plateauSize(input)).toEqual([5, 5]);
+  });
+});
+
+describe(parsePosition.name, () => {
+  it('should return the position as an object with x, y, and heading properties', () => {
+    const input = '1 2 N';
+    expect(parsePosition(input)).toEqual({ x: 1, y: 2, heading: 'N' });
   });
 });
 
