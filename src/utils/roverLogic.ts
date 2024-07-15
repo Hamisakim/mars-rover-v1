@@ -116,9 +116,10 @@ export const parsePosition = (line: string): Position => {
   };
 };
 
-export const foo = (input: string) => {
+export const executeInput = (input: string) => {
   if (!validateInput(input)) throw new Error('Invalid input');
   const lines = input.trim().split('\n');
+  //TODO implement out of bounds check
   const [maxX, maxY] = plateauSize(lines[0]);
 
   const rovers = [];
@@ -129,9 +130,9 @@ export const foo = (input: string) => {
     for (const instruction of instructions) {
       newPosition = moveRover(newPosition, instruction);
     }
-    rovers.push(newPosition);
+    rovers.push(`${newPosition.x} ${newPosition.y} ${newPosition.heading}`);
   }
-return rovers;
+  return rovers.join('\n');
 };
 
 export {};

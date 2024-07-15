@@ -1,6 +1,6 @@
 /* eslint-disable jest/valid-title */
 import {
-  foo,
+  executeInput,
   moveRover,
   parsePosition,
   plateauSize,
@@ -124,14 +124,16 @@ describe(parsePosition.name, () => {
   });
 });
 
-describe(foo.name, () => {
+describe(executeInput.name, () => {
   it('should return the output from the input for the rovers', () => {
     const input = `5 5
 1 2 N
 LMLMLMLMM
 3 3 E
 MMRMMRMRRM`;
-    foo(input);
+
+    expect(executeInput(input)).toEqual(`1 3 N
+5 1 E`);
   });
 });
 
