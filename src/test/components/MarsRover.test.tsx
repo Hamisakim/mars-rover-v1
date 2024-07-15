@@ -1,9 +1,9 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import MarsRover from '../../components/MarsRover';
 
-
-test('renders MarsRover component', () => {
-  render(<App />);
+test('renders learn react link', () => {
+  render(<MarsRover />);
   const linkElement = screen.getByText(/MarsRover/);
   expect(linkElement).toBeInTheDocument();
 });
