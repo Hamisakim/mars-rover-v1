@@ -1,9 +1,9 @@
-import MarsRover from "./components/MarsRover";
+import MarsRover from './components/MarsRover';
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <MarsRover/>
+      <MarsRover />
     </div>
   );
 };

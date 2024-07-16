@@ -33,6 +33,9 @@ const MarsRover: React.FC = () => {
           <br />
           Instructions
         </span>
+        <br />
+
+       Note:  Case sensitive, don't leave trailing spaces!
       </p>
       <div className="my-4">
         <textarea
