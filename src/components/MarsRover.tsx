@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { validateInput, executeInput } from '../utils/roverLogic';
 
 const MarsRover: React.FC = () => {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState<string>('');
   const [output, setOutput] = useState<string>('');
-  const [error, setError] = useState<string | null>('');
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = () => {
     setError(null);
